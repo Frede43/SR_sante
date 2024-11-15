@@ -1,0 +1,48 @@
+{% extends 'base/base.html' %}
+{% load i18n %}
+{% load crispy_forms_tags %} 
+{% block content %}
+<div class="container mt-4">
+    <h2>{{question.title}}</h2>
+    <p class="mb-1">{{ question.content }}</p>
+    <small class="fw-bold">{% trans 'Posted by' %} {{ question.author.username }} on {{ question.created_at}}</small>
+
+    <hr>
+
+    <!-- Comment Form -->
+    <h4 class="h6">{% trans 'Leave a Comment' %}</h4>
+    <form method="POST" action="{% url 'comment_create' question.pk %}">
+        {% csrf_token %}
+        {{ form|crispy }}
+        <button type="submit" class="btn btn-primary">{% trans 'Comment' %}</button>
+    </form>
+
+    <hr>
+
+    <!-- Comments Section -->
+    <h4 class="h6">{% trans 'Comments' %}</h4>
+    <ul class="list-group">
+        {% for comment in comments %}
+        <li class="list-group-item">
+            <p class="mb-1">{{ comment.content }}</p>
+            <small class="text-primary">Commented by {{ comment.author.username }} on {{ comment.created_at|date:"F j, Y, g:i a" }}</small>
+            <a href="{% url 'comment_reply' question.pk comment.pk %}" class="btn btn-sm btn-link">{% trans 'Reply' %}</a>
+
+            <!-- Display replies -->
+            {% if comment.replies.all %}
+            <ul class="list-group mt-2">
+                {% for reply in comment.replies.all %}
+                <li class="list-group-item text-muted bg-light">
+                    <p class="mb-1">{{ reply.content }}</p>
+                    <small class="fw-bold">{% trans 'Replied by' %} {{ reply.author.username }} on {{ reply.created_at|date:"F j, Y, g:i a" }}</small>
+                </li>
+                {% endfor %}
+            </ul>
+            {% endif %}
+        </li>
+        {% empty %}
+        <li class="list-group-item">{% trans 'No comments yet. Be the first to comment!' %}</li>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock %}

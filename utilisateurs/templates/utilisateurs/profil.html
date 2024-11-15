@@ -1,0 +1,33 @@
+{% extends 'base/base.html' %}
+{% load i18n %}
+{% load crispy_forms_tags %}
+{% block content %}
+<div class="row row-cols-1 row-cols-sm-2 row-cols-md-2 g-3">
+	<div class="col">		
+		<div class="card">
+			<div class="card-body text-center">
+				{% if user.profil.image %}
+				    <img src="{{user.profil.image.url}}" alt="twbs" height="120" width="120" class="rounded-circle flex-shrink-0">
+			    {% endif %}
+			    <h1 class="h4">{{user.profil.nom_complet}}</h1>
+			    <h6>@{{user.profil.utilisateur.username}}</h6>
+		        <p class="mb-0 opacity-75">{{user.profil.description}}</p>
+			</div>
+		</div>
+	</div>
+
+	<div class="col">		
+		<div class="card">
+			<div class="card-body">
+			    <form class="form-group mb-3" method="POST" action="." enctype="multipart/form-data">
+			        {% csrf_token %}
+			        {{ user_form|crispy }}
+			        {{ profil_form|crispy }}
+					<button type="submit" class="btn btn-primary">{% trans 'Update' %}</button>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+
+{% endblock %}

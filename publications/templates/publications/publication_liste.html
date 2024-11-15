@@ -1,0 +1,30 @@
+{% extends 'base/base.html' %}
+{% load i18n %}
+{% block content %}
+
+<h2 class="mb-3">{{title|title}}</h2>
+
+<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+	{% for publication in publications %}
+	<div class="col">		
+		<div class="card h-100">
+			{% if publication.image %}
+				<img src="{{publication.image.url}}" height="225" class="card-img-top">
+			{% endif %}
+			<div class="card-body">
+			    <h1 class="h4">{{publication.titre}}</h1>
+			    <p class="mb-2">{{publication.description|truncatewords:20}}</p>
+
+			    <li class="list-group-item mb-2">
+		    		<span class="fw-bold text-muted">{% trans 'Posted by' %} {{publication.utilisateur.username}} {% trans 'on' %} {{publication.created|date}}</span>
+		    	</li>
+
+				<a href="{{publication.get_absolute_url}}" class="btn btn-primary">{% trans 'Detail' %}</a>
+			</div>
+		</div>
+	</div>
+	{% endfor %}
+</div>
+
+
+{% endblock %}

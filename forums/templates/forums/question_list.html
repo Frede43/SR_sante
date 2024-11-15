@@ -1,0 +1,21 @@
+{% extends 'base/base.html' %}
+{% load i18n %}
+{% block content %}
+<!-- <div class="card mt-4"> -->
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h2>{% trans 'Forum Questions' %}</h2>
+        <a href="{% url 'question_create' %}" class="btn btn-primary">{% trans 'Ask a Question' %}</a>
+    </div>
+    <ul class="list-group">
+        {% for question in questions %}
+        <li class="list-group-item list-group-item-action">
+            <h5><a href="{% url 'question_detail' question.pk %}">{{ question.title }}</a></h5>
+            <p class="mb-1">{{ question.content|truncatewords:20 }}</p>
+            <small>{% trans 'Posted by' %} {{ question.author.username }} {% trans 'on' %} {{ question.created_at }}</small>
+        </li>
+        {% empty %}
+        <li class="list-group-item">{% trans 'No questions have been asked yet.' %}</li>
+        {% endfor %}
+    </ul>
+<!-- </div> -->
+{% endblock %}

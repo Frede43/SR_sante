@@ -1,0 +1,249 @@
+Programme National de Santé Reproductive (PNSR)
+
+PYTHON & DJANGO COMMANDS:
+	python manage.py createsuperuser 
+
+	python manage.py makemigrations 
+
+	python manage.py migrate
+
+	python manage.py runserver 
+
+	python manage.py collectstatic
+	
+	python manage.py makemessages --all
+
+	python manage.py compilemessages
+
+	pip freeze > requirements.txt 
+
+	pip install -r requirements.txt --upgrade
+
+
+
+
+Offre Technique pour le Site 
+Web du PNSR
+I. Introduction
+Cette offre détaillée propose la conception, le développement, et le support du site web du PNSR 
+pour fournir une plateforme robuste, sécurisée, et fonctionnelle adaptée aux besoins de 
+communication et d'information du PNSR.
+
+II. Fonctionnalité du Site Web
+1. Espace de Publication et visibilité du PNSR
+Un espace permettant la publication des activités de différents partenaires en SR. Les activités 
+seront partageables sur les autres plateformes sociales existantes comme mentionné dans le TDR.
+Cet espace aussi valorise l'image du Programme National de Santé de la Reproduction.
+
+2. Espaces de recherche et de dialogue
+- Espace de Recherche pour Chercheurs : Accès sécurisé à des documents de recherche validés 
+par le MSPLS avec options de téléchargement. Cette fonctionnalité permettra également aux 
+chercheurs de trouver rapidement des documents, articles, et ressources avec des filtres avancés
+à l’aide d’un moteur de recherche avancé
+
+- Espace Statistiques et Données Tableaux de bord interactifs affichant des données clés et 
+analyses en temps réel.
+
+- Espace d'Échange pour Jeunes et les adolescents : Forum sécurisé pour les discussions et le 
+partage d'expériences base sur les sujets du SSR.
+
+- Espace d'Échange et Communication pour Acteurs Directs et Indirects : Plateforme 
+collaborative pour tous les acteurs du programme
+
+3. Espace Bibliothèque
+- Espace de documentation et d’information en ligne en rapport avec le SR : contenus 
+informatifs de qualité tels que les articles, les images, les PDF, les podcasts et des vidéos 
+en SR.
+
+- Cet espace offre aussi un outil de production de rapports automatisés : rapports 
+personnalisables avec exportation et notifications intégrées. Le rapport pourra être chargé 
+en PDF, ou à l’aide d’un modèle de rapport pour fournir les informations sur les 
+statistiques.
+
+- Notifications et Alertes Automatisées : Notifications pour les mises à jour importantes 
+et les rappels de rapport.
+
+4. Chatbots Intelligents
+- Chatbot pour Informations Générales et Support : Automatisation des réponses aux questions 
+fréquentes, orientation des utilisateurs, et assistance en temps réel.
+
+- Chatbot pour Jeunes Interaction spécifique pour les jeunes, fournissant des informations et 
+conseils en santé reproductive.
+
+5. Gestion des Identités
+- Système de Gestion des Identités Uniques Profils personnalisés pour les acteurs avec 
+authentification sécurisée.
+
+D’une manière générale, l’impact global de ces fonctionnalités transforment le site web du PNSR 
+en une plateforme complète et polyvalente qui supporte efficacement la mission du programme 
+en matière de santé reproductive. Elles offrent un environnement interactif et éducatif, améliorent 
+l'accès et la gestion des informations, et facilitent la collaboration entre tous les acteurs impliqués. 
+Les outils de rapport et d'analyse permettent une évaluation précise de l'impact des activités du 
+programme et une meilleure prise de décision basée sur des données fiables.
+L'intégration de ces fonctionnalités modernes et interactives assure que le site web reste à la 
+pointe de la technologie et répond aux besoins variés des utilisateurs, des gestionnaires de 
+programme, des chercheurs, et des professionnels de santé, faisant du site web un outil central 
+pour le succès du PNSR.
+
+
+PNSR (Programme National de Santé Reproductive)
+
+
+
+====================================================
+######################MODELS SAMPLE######################
+====================================================
+
+
+Pour implémenter le projet décrit, il est essentiel d'identifier les modèles qui correspondent aux fonctionnalités principales tout en simplifiant la base de données. Voici les modèles principaux que je vous recommande d'utiliser, avec les relations nécessaires pour assurer le bon fonctionnement de la plateforme PNSR.
+
+Modèles Clés à Utiliser
+
+1. User (Utilisateur)
+Le modèle de base pour la gestion des identités des utilisateurs.
+
+Champs :
+* username: Chaîne de caractères (Nom d'utilisateur)
+* email: Email (Courriel)
+* password: Mot de passe sécurisé (haché)
+* created_at: Date de création du compte
+* updated_at: Dernière mise à jour
+
+2. UserProfile (Profil Utilisateur)
+Stocke des informations supplémentaires sur les utilisateurs.
+
+Champs :
+* user: Clé étrangère (vers User)
+* full_name: Nom complet
+* profile_picture: Image de profil
+* bio: Description/biographie de l'utilisateur
+* role: Clé étrangère vers le modèle Role
+
+3. Role (Rôle)
+Gère les rôles des utilisateurs pour définir leur accès et permissions (par exemple, Administrateur, Chercheur, Jeune, etc.).
+
+Champs :
+* name: Nom du rôle
+* permissions: Permissions sous forme de JSON ou texte
+
+4. Partner (Partenaire)
+Ce modèle représente les partenaires (les organisations ou acteurs impliqués dans la SR).
+
+Champs :
+* name: Nom du partenaire
+* description: Texte descriptif
+* logo: Image (Logo du partenaire)
+* email: Adresse électronique
+* website: Lien vers le site internet du partenaire
+* created_at: Date de création
+* updated_at: Date de mise à jour
+
+5. Category (Catégorie)
+Ce modèle sert à organiser les partenaires et documents par catégorie.
+
+Champs :
+* name: Nom de la catégorie
+* description: Description textuelle
+
+6. Post (Publication)
+Les activités ou publications des partenaires sont enregistrées ici.
+
+Champs :
+* title: Titre de la publication
+* content: Contenu (texte) de la publication
+* author: Clé étrangère vers Partner
+* created_at: Date de création
+* updated_at: Date de mise à jour
+
+7. Comment (Commentaire)
+Permet aux utilisateurs de commenter les publications des partenaires.
+
+Champs :
+* post: Clé étrangère vers Post
+* author: Clé étrangère vers User ou Partner
+* content: Texte du commentaire
+* created_at: Date de création
+
+8. Document (Document de recherche)
+Pour les documents validés par le ministère de la santé, consultables par les chercheurs.
+
+Champs :
+* title: Titre du document
+* description: Description du document
+* file: Fichier associé (PDF, etc.)
+* category: Clé étrangère vers Category
+* created_at: Date de création
+
+9. Forum (Forum)
+Le forum pour les discussions entre jeunes, adolescents, et autres acteurs.
+
+Champs :
+* name: Nom du forum
+* description: Description du forum
+
+10. Message (Message dans le forum)
+Ce modèle enregistre les messages dans le forum de discussion.
+
+Champs :
+* forum: Clé étrangère vers Forum
+* author: Clé étrangère vers User
+* content: Texte du message
+* created_at: Date de création
+
+11. DashboardStatistics (Statistiques)
+Les données affichées sur les tableaux de bord, en temps réel.
+
+Champs :
+* title: Titre des statistiques
+* data: Données sous forme de JSON
+* created_at: Date de création
+
+12. Notification (Notification)
+Gère les notifications pour informer les utilisateurs des mises à jour.
+
+Champs :
+* user: Clé étrangère vers User
+* message: Texte de la notification
+* is_read: Boolean (Pour savoir si la notification a été lue ou non)
+* created_at: Date de création
+
+13. Subscription (Abonnement)
+Gère les abonnements des utilisateurs aux mises à jour de certains contenus.
+
+Champs :
+* subscriber: Clé étrangère vers User
+* subscribed_to: Clé étrangère vers Partner ou Post
+* created_at: Date d'abonnement
+
+14. ChatbotResponse (Réponses Chatbot)
+Stocke des réponses automatisées pour le chatbot.
+
+Champs :
+* question: Question type à laquelle le chatbot répond
+* response: Réponse du chatbot
+* category: Clé étrangère vers Category
+
+Relations et Explications
+* User et UserProfile : Chaque utilisateur a un profil personnalisé avec des informations supplémentaires (nom complet, image, rôle).
+* Partner et Post : Les partenaires peuvent publier des activités dans la section des publications.
+* Post et Comment : Les utilisateurs peuvent commenter sur des publications de partenaires.
+* Document : Les chercheurs peuvent accéder aux documents en ligne, triés par catégorie.
+* Forum et Message : La plateforme inclut un forum sécurisé où les utilisateurs échangent des messages.
+* DashboardStatistics : Des données statistiques sont affichées sur des tableaux de bord interactifs.
+* Notification : Notifications et alertes automatiques pour informer les utilisateurs.
+* ChatbotResponse : Stocke les réponses prédéfinies du chatbot pour assister les jeunes ou les visiteurs.
+
+Modèles Essentiels
+* User : Gestion des utilisateurs (acteurs, chercheurs, jeunes, etc.)
+* Partner : Gestion des partenaires institutionnels
+* Post : Gestion des publications d’activités
+* Document : Gestion des documents à destination des chercheurs
+* Forum et Message : Communication et échange
+* Notification : Gestion des alertes automatiques
+
+Ces modèles constituent l'ossature pour répondre aux besoins de publication, de dialogue, de recherche, et de gestion des identités sur la plateforme PNSR.
+
+
+
+
+

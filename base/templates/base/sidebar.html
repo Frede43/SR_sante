@@ -1,0 +1,90 @@
+{% load i18n %}
+<nav class="sb-sidenav accordion sb-sidenav-light" id="sidenavAccordion">
+    <div class="sb-sidenav-menu">
+        <div class="nav">
+            <div class="sb-sidenav-menu-heading">{% trans 'Core' %}</div>
+            <a class="nav-link" href="{% url 'publication_liste' %}">
+                <div class="sb-nav-link-icon"><i class="bi bi-list-task"></i></div>
+                {% trans 'Publications' %}
+            </a>
+            <a class="nav-link" href="{% url 'question_list' %}">
+                <div class="sb-nav-link-icon"><i class="bi bi-chat-left-dots"></i></div>
+                {% trans 'Forums' %}
+            </a>
+            <a class="nav-link" href="{% url 'partenaire_liste' %}">
+                <div class="sb-nav-link-icon"><i class="bi bi-people"></i></div>
+                {% trans 'Partners' %}
+            </a>
+            <a class="nav-link" href="{% url 'document_liste' %}">
+                <div class="sb-nav-link-icon"><i class="bi bi-files"></i></div>
+                {% trans 'Documents' %}
+            </a>
+
+            <div class="sb-sidenav-menu-heading">{% trans 'Accounts' %}</div>
+            {% if request.user.is_authenticated %}
+                <a class="nav-link" href="{% url 'profil' %}">
+                    <div class="sb-nav-link-icon"><i class="bi bi-person-circle"></i></div>
+                    {% trans 'Profile' %}
+                </a>
+                <a class="nav-link" href="{% url 'profil' %}">
+                    <div class="sb-nav-link-icon"><i class="bi bi-gear"></i></div>
+                    {% trans 'Settings' %}
+                </a>
+            {% else %}
+                <a class="nav-link" href="{% url 'connexion' %}">
+                    <div class="sb-nav-link-icon"><i class="bi bi-box-arrow-in-right"></i></div>
+                    {% trans 'Login' %}
+                </a>
+
+                <a class="nav-link" href="{% url 'inscription' %}">
+                    <div class="sb-nav-link-icon"><i class="bi bi-save"></i></div>
+                    {% trans 'Register' %}
+                </a>
+            {% endif %}
+        </div>
+    </div>
+    <div class="sb-sidenav-footer">
+        <div class="small mb-2">{% trans 'Language' %}:</div>
+        
+        <form id="language-form" action="{% url 'set_language' %}" method="POST">
+        {% csrf_token %}
+            <div class="d-flex gap-2">
+                    <select name="language" id="language-selector" class="form-control" onchange="changeLanguage(this.value)">
+                        {% get_current_language as LANGUAGE_CODE %}
+                        {% get_available_languages as LANGUAGES %}
+                        {% get_language_info_list for LANGUAGES as languages %}
+                        {% for language in languages %}
+                            <option value="{{language.code}}" {% if language.code == LANGUAGE_CODE %} selected{% endif %}>{{language.name_local|title}} ({{language.code}})</option>
+                        {% endfor %}
+                    </select>
+                    <input name="next" type="hidden" value="{{redirect_to}}">
+                    <button class="btn btn-primary" type="submit">{% trans 'Go' %}</button>
+            </div>
+        </form>
+    </div>
+</nav>
+
+
+<script type="text/javascript">
+  // Set the selected language to localStorage when the selection changes
+  function changeLanguage() {
+    // Same as before
+    var selectedLanguage = document.getElementById("language-selector").value;
+    console.log("Selected Language: ", selectedLanguage);
+    localStorage.setItem("selectedLanguage", selectedLanguage);
+
+    // New: Redirect or use AJAX to refresh the page
+    // window.location.href = window.location.href;  // Refresh the page
+  }
+
+  // Set the selected language from localStorage when the page is loaded
+  document.addEventListener("DOMContentLoaded", function() {
+    var storedLanguage = localStorage.getItem("selectedLanguage");
+    if (storedLanguage) {
+      document.getElementById("language-selector").value = storedLanguage;
+    }
+  });
+</script>
+
+
+

@@ -1,0 +1,26 @@
+{% extends 'base/base.html' %}
+{% load i18n %}
+{% block content %}
+
+<h2>{% trans 'Partners' %}</h2>
+
+{% if partenaires %}
+<div class="list-group">
+	{% for partenaire in partenaires %}
+    <a href="{{partenaire.get_absolute_url}}" class="list-group-item list-group-item-action d-flex gap-3 py-3" aria-current="true">
+	    <img src="{{partenaire.logo.url}}" alt="twbs" width="42" height="42" class="rounded flex-shrink-0">
+	    <div class="d-flex gap-2 w-100 justify-content-between">
+	        <div>
+		        <h5 class="mb-0 text-primary">{{partenaire.nom}}</h5>
+		        <p class="mb-0 opacity-75">{{partenaire.description|truncatewords:16}}</p>
+	        </div>
+	    </div>
+    </a>
+    {% endfor %}
+</div>
+{% else %}
+	<h4 class="text-center py-5">{% trans 'Empty List' %}</h4>
+{% endif %}
+
+
+{% endblock %}

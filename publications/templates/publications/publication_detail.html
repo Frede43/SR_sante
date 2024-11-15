@@ -1,0 +1,68 @@
+{% extends 'base/base.html' %}
+{% load i18n %}
+{% load crispy_forms_tags %} 
+{% block content %}
+
+<h2 class="mb-3">{{title|title}}</h2>
+
+<div class="row g-3">
+	<div class="col-sm-12 col-md-8 col-lg-8">		
+		<div class="card">
+			{% if publication.image %}
+				<img src="{{publication.image.url}}" class="card-img-top border-bottom">
+			{% endif %}
+			
+			<div class="card-body">
+			    <h1 class="h4">{{publication.titre}}</h1>
+			    <p>{{publication.description}}</p>
+
+				<div class="text-muted">
+					<span>{{publication.commentaires.count}} {% trans 'Comments' %}</span>
+				</div>
+
+				<li class="list-group-item mt-2">
+		    		<span class="fw-bold text-muted">{% trans 'Posted by' %} {{publication.utilisateur.username}} {% trans 'on' %} {{publication.created|date}}</span>
+		    	</li>
+			</div>
+
+			<div class="card-footer">
+				<form class="form-group mb-3" method="POST" action=".">
+			        {% csrf_token %}
+			        {{ comment_form|crispy }}
+					<button type="submit" class="btn btn-primary">{% trans 'Comment' %}</button>
+				</form>
+
+				{% if publication.commentaires.all %}
+				<ul class="list-group list-group-flush">
+					{% for comment in publication.commentaires.all %}
+			    	<li class="list-group-item">
+			    		<span class="fw-bold text-muted">{% trans 'Commented by' %} {{comment.utilisateur.username}} {% trans 'on' %} {{comment.created|date}}</span>
+			    		{{comment.description}}
+			    	</li>
+				    {% endfor %}
+			    </ul>
+			    {% endif %}
+			</div>
+		</div>
+	</div>
+
+	<div class="col-sm-12 col-md-4 col-lg-4">		
+		<div class="card">
+			<div class="card-body">
+			    <h1 class="h4">{% trans 'Partners who participated' %}</h1>
+			    <ul>
+			    	{% if publication.partenaires.all %}
+				    	{% for partenaire in publication.partenaires.all %}
+				    	<li class="mb-2"><a href="{{partenaire.get_absolute_url}}" class="h5">{{partenaire.nom}}</a></li>
+				    	{% endfor %}
+			    	{% else %}
+				    	<li><h2>{% trans 'No partner has participated' %}</h2></li>
+			    	{% endif %}
+			    </ul>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+{% endblock %}

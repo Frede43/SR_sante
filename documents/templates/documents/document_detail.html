@@ -1,0 +1,18 @@
+{% extends 'base/base.html' %}
+{% load i18n %}
+{% block content %}
+
+<div class="list-group">
+    <div class="list-group-item d-flex gap-3 py-3" aria-current="true">
+	    <div class="gap-2 w-100 justify-content-between">
+	        <h6 class="mb-2">{{document.titre}}</h6>
+	        <p class="text-primary fw-bold">{{document.categorie.nom}}</p>
+	        <p class="opacity-75">{{document.description}}</p>
+
+			<a href="{{document.fichier}}" download="{{document.fichier}}" class="btn btn-primary">{% trans 'Download' %}</a>
+
+	    </div>
+    </div>
+</div>
+
+{% endblock %}
