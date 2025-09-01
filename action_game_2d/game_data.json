@@ -1,0 +1,18 @@
+{
+  "high_scores": [
+    {
+      "score": 1500,
+      "wave": 5,
+      "enemies_killed": 20,
+      "time_survived": 120
+    }
+  ],
+  "total_enemies_killed": 20,
+  "total_time_played": 120,
+  "games_played": 1,
+  "settings": {
+    "master_volume": 0.7,
+    "sfx_volume": 0.8,
+    "music_volume": 0.6
+  }
+}
