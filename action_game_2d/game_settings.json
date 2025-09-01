@@ -1,0 +1,44 @@
+{
+  "display": {
+    "screen_width": 1200,
+    "screen_height": 800,
+    "fps": 60,
+    "fullscreen": false
+  },
+  "gameplay": {
+    "player_health": 100,
+    "player_speed": 5,
+    "player_damage": 25,
+    "enemy_health": 50,
+    "enemy_damage": 15,
+    "gravity": 0.8,
+    "jump_strength": 18
+  },
+  "difficulty": {
+    "initial_enemy_spawn_delay": 3.0,
+    "max_enemies": 6,
+    "boss_wave_interval": 3,
+    "powerup_spawn_delay": 8.0
+  },
+  "audio": {
+    "master_volume": 0.7,
+    "sfx_volume": 0.8,
+    "music_volume": 0.6,
+    "audio_enabled": true
+  },
+  "controls": {
+    "move_left": ["a", "left"],
+    "move_right": ["d", "right"], 
+    "jump": ["space", "w", "up"],
+    "attack": ["x"],
+    "dash": ["c", "lshift"],
+    "shoot": ["mouse_left"],
+    "menu": ["escape"]
+  },
+  "visual_effects": {
+    "particles_enabled": true,
+    "screen_shake": true,
+    "damage_numbers": true,
+    "trail_effects": true
+  }
+}

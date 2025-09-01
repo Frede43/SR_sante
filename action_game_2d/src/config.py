@@ -1,0 +1,43 @@
+"""
+Configuration du jeu - Constantes et paramètres
+"""
+
+# Dimensions de l'écran
+SCREEN_WIDTH = 1200
+SCREEN_HEIGHT = 800
+FPS = 60
+
+# Couleurs (RGB)
+BLACK = (0, 0, 0)
+WHITE = (255, 255, 255)
+RED = (255, 0, 0)
+GREEN = (0, 255, 0)
+BLUE = (0, 0, 255)
+YELLOW = (255, 255, 0)
+PURPLE = (128, 0, 128)
+ORANGE = (255, 165, 0)
+GRAY = (128, 128, 128)
+DARK_GRAY = (64, 64, 64)
+
+# Physique
+GRAVITY = 0.8
+JUMP_STRENGTH = -18
+PLAYER_SPEED = 5
+FRICTION = 0.8
+
+# Combat
+PLAYER_HEALTH = 100
+PLAYER_DAMAGE = 25
+ENEMY_HEALTH = 50
+ENEMY_DAMAGE = 15
+PROJECTILE_SPEED = 12
+
+# Niveaux
+TILE_SIZE = 32
+PLATFORM_COLOR = (139, 69, 19)  # Marron
+BACKGROUND_COLOR = (135, 206, 235)  # Bleu ciel
+
+# Audio
+MASTER_VOLUME = 0.7
+SFX_VOLUME = 0.8
+MUSIC_VOLUME = 0.6
